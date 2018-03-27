@@ -128,6 +128,7 @@ export default class RichTextToolbar extends Component {
       >
         <ListView
             horizontal
+            scrollEnabled={this.props.scrollEnabled || true}
             contentContainerStyle={{flexDirection: 'row'}}
             dataSource={this.state.ds}
             renderRow= {(row) => this._renderAction(row.action, row.selected)}
