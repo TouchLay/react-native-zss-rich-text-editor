@@ -7,6 +7,7 @@ import {Modal, View, Text, StyleSheet, TextInput, TouchableOpacity, Platform, Pi
 
 const injectScript = `
   (function () {
+    window.location.hash = 1;document.title = document.getElementsByTagName('html')[0].scrollHeight;
     ${InjectedMessageHandler}
   }());
 `;
@@ -46,7 +47,8 @@ export default class RichTextEditor extends Component {
       linkInitialUrl: '',
       linkTitle: '',
       linkUrl: '',
-      keyboardHeight: 0
+      keyboardHeight: 0,
+      height:0,
     };
     this._selectedTextChangeListeners = [];
   }
@@ -289,6 +291,13 @@ export default class RichTextEditor extends Component {
     return PlatformIOS ? buttonText : buttonText.toUpperCase();
   }
 
+  _onNavigationStateChange(navState) {
+    console.log("webView Height:", navState.title);
+    this.setState({
+      height: navState.title
+    });
+  }
+
   render() {
     //in release build, external html files in Android can't be required, so they must be placed in the assets folder and accessed via uri
     const pageSource = PlatformIOS ? require('./editor.html') : { uri: 'file:///android_asset/editor.html' };
@@ -303,6 +312,7 @@ export default class RichTextEditor extends Component {
           injectedJavaScript={injectScript}
           source={pageSource}
           onLoad={() => this.init()}
+          onNavigationStateChange={this._onNavigationStateChange.bind(this)}
         />
         {this._renderLinkModal()}
       </View>
