@@ -7,8 +7,10 @@ import {Modal, View, Text, StyleSheet, TextInput, TouchableOpacity, Platform, Pi
 
 const injectScript = `
   (function () {
-    window.location.hash = 1;document.title = document.getElementsByTagName('html')[0].scrollHeight;
     ${InjectedMessageHandler}
+    setTimeout(() => {
+      window.location.hash = 1;document.title = document.getElementsByTagName('html')[0].scrollHeight;
+    }, 100)
   }());
 `;
 
@@ -296,6 +298,9 @@ export default class RichTextEditor extends Component {
     this.setState({
       height: navState.title
     });
+    if (this.props.onHeight) {
+     this.props.onHeight(navState.title)
+    }
   }
 
   render() {
