@@ -302,7 +302,10 @@ export default class RichTextEditor extends Component {
     //in release build, external html files in Android can't be required, so they must be placed in the assets folder and accessed via uri
     const pageSource = PlatformIOS ? require('./editor.html') : { uri: 'file:///android_asset/editor.html' };
     return (
-      <View style={{flex: 1}}>
+      <View style={{flex: 1}} onLayout={(event) => {
+        const { height } = event.nativeEvent.layout;
+        this.setState({ outerHeight: height })
+      }}>
         <WebViewBridge
           {...this.props}
           hideKeyboardAccessoryView={true}
