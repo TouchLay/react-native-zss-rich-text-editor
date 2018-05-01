@@ -1642,6 +1642,14 @@
 			zss_editor.setPlatform = function(platform) {
 				zss_editor.platform = platform;
 			}
+			
+			// try to disable overflowing text
+			$('#zss_editor_content').addEvent('keypress', function (e) {
+			    var element = this;
+			    if ((element.offsetHeight < element.scrollHeight) || (element.offsetWidth < element.scrollWidth)) {
+				e.stop();
+			    }
+			});
 
 			//end
 		</script>
