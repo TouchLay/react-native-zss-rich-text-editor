@@ -49,7 +49,6 @@ export default class RichTextToolbar extends Component {
       dataSet: this.getRows(actions, [])
     };
   }
-
   /*componentWillReceiveProps(newProps) {
     const actions = newProps.actions ? newProps.actions : defaultActions;
     this.setState({
