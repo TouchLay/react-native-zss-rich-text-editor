@@ -126,19 +126,10 @@ export default class RichTextToolbar extends Component {
       <View
           style={[{height: 50, backgroundColor: '#D3D3D3', alignItems: 'center'}, this.props.style]}
       >
-<<<<<<< HEAD
-        <ListView
-            horizontal
-            scrollEnabled={this.props.scrollEnabled || true}
-            contentContainerStyle={{flexDirection: 'row'}}
-            dataSource={this.state.ds}
-            renderRow= {(row) => this._renderAction(row.action, row.selected)}
-=======
        <FlatList
           data={this.state.dataSet}
           numColumns={this.state.actions.length}
           renderItem={(item) => this._renderAction(item.item.action, item.item.selected)}
->>>>>>> :fire: subsitute ListView with FlatList in RichTextToolbar
         />
       </View>
     );
