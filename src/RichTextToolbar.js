@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {ListView, View, TouchableOpacity, Image, StyleSheet} from 'react-native';
+import {FlatList, View, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import {actions} from './const';
 
 const defaultActions = [
@@ -46,17 +46,17 @@ export default class RichTextToolbar extends Component {
       editor: undefined,
       selectedItems: [],
       actions,
-      ds: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}).cloneWithRows(this.getRows(actions, []))
+      dataSet: this.getRows(actions, [])
     };
   }
 
-  componentWillReceiveProps(newProps) {
+  /*componentWillReceiveProps(newProps) {
     const actions = newProps.actions ? newProps.actions : defaultActions;
     this.setState({
       actions,
       ds: this.state.ds.cloneWithRows(this.getRows(actions, this.state.selectedItems))
     });
-  }
+  }*/
 
   getRows(actions, selectedItems) {
     return actions.map((action) => {return {action, selected: selectedItems.includes(action)};});
@@ -76,7 +76,7 @@ export default class RichTextToolbar extends Component {
     if (selectedItems !== this.state.selectedItems) {
       this.setState({
         selectedItems,
-        ds: this.state.ds.cloneWithRows(this.getRows(this.state.actions, selectedItems))
+        dataSet: this.getRows(this.state.actions, selectedItems)
       });
     }
   }
@@ -126,12 +126,19 @@ export default class RichTextToolbar extends Component {
       <View
           style={[{height: 50, backgroundColor: '#D3D3D3', alignItems: 'center'}, this.props.style]}
       >
+<<<<<<< HEAD
         <ListView
             horizontal
             scrollEnabled={this.props.scrollEnabled || true}
             contentContainerStyle={{flexDirection: 'row'}}
             dataSource={this.state.ds}
             renderRow= {(row) => this._renderAction(row.action, row.selected)}
+=======
+       <FlatList
+          data={this.state.dataSet}
+          numColumns={this.state.actions.length}
+          renderItem={(item) => this._renderAction(item.item.action, item.item.selected)}
+>>>>>>> :fire: subsitute ListView with FlatList in RichTextToolbar
         />
       </View>
     );
