@@ -6,22 +6,12 @@ import {MessageConverter} from './WebviewMessageHandler';
 import {actions, messages} from './const';
 import {Modal, View, Text, StyleSheet, TextInput, TouchableOpacity, Platform, PixelRatio, Keyboard, Dimensions} from 'react-native';
 
-<<<<<<< HEAD
-const injectScript = `
-  (function () {
-    ${InjectedMessageHandler}
-    setTimeout(() => {
-      window.location.hash = 1;document.title = document.getElementsByTagName('html')[0].scrollHeight;
-    }, 100)
-  }());
-`;
-=======
+
 // const injectScript = `
 //   (function () {
 //     ${InjectedMessageHandler}
 //   }());
 // `;
->>>>>>> :heavy_minus_sign: remove use of react-native-webview-bridge-updated and use react-native-webview instead
 
 const PlatformIOS = Platform.OS === 'ios';
 
